@@ -10,6 +10,7 @@
     <div><%= book.publish_date != null ? book.publish_date.toDateString() : "-" %></div>
     <div class="book-details-label">Description:</div>
     <div><%= book.description=="" ? "-" : book.description  %></div><br>
+    <div class="book-details-label">Please scroll down to view the document ⏬</div>
   </div>
 </div>
 <%- include('../partials/deleteForm', { url: `/books/${book.id}` }) %>

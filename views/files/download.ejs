@@ -19,7 +19,8 @@
         <div class="download__meta pb-2">
             <small>size (approx) : <%= parseInt(book.size/1000000) %> MB</small>
         </div>
-        <div class="send-btn-container" style = "position:relative; left:270px; bottom:300px;">
+        <!--  style = "position:relative; left:270px; bottom:300px;" -->
+        <div class="send-btn-container">
             <iframe src="<%= book.file_url %>#view=fitH" style="width:80%; height:1200px;" frameborder="0"></iframe>
         </div>
         <% } %>

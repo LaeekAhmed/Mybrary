@@ -15,4 +15,5 @@
 </div>
 <%- include('../partials/deleteForm', { url: `/books/${book.id}` }) %>
 <a class="btn btn-primary book-details-author-button" href="/authors/<%= book.author %>">View Author</a>
-<%- include('../files/download') %>
+<!-- 📌 pdf url included in this ejs file ; -->
+<%- include('../files/download') %> 

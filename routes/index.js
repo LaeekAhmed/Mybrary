@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
     books = []
   }
   res.render('index', { books: books })
+  // res.render('test')
 })
 
 module.exports = router
-

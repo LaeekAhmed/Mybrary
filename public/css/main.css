@@ -18,6 +18,7 @@ body{
 }
 /* headings */
 h5, .navbar-brand{
+    font-family :Verdana, Geneva, Tahoma, sans-serif;
     padding-right: 4%;
     font-weight: 600 !important;
 }

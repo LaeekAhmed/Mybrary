@@ -7,7 +7,7 @@ const crypto =  require('crypto');
 const aws = require("aws-sdk");
 // const { S3Client, PutObject } =  require("@aws-sdk/client-s3");
 
-/* import/methods to deal with cover image:
+/* imports/methods to deal with cover image:
 firstly we need to create the image file in the folder after the user uploads it,then get the name and save it */
 
 const multer = require('multer') //allows us to work with multipart forms (file-form)
@@ -15,7 +15,8 @@ const multer = require('multer') //allows us to work with multipart forms (file-
 const path = require('path') //built-in library
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'] //accepted image-type list
 // const uploadPath = path.join('public','pdfs') //'public/uploads/bookCovers'
-const fs = require('fs') // filesys -> to delete book covers created while no new entry for book was created due to error
+// filesys -> to delete book covers created while no new entry for book was created due to error ;
+const fs = require('fs') 
 
 const s3 = new aws.S3({
   accessKeyId: process.env.S3_ACCESS_KEY,
@@ -94,7 +95,7 @@ router.post('/', (req, res) => {
       const uploadedImage = await s3.upload(params).promise()
       console.log('aws done : ',uploadedImage.Location)
       // storing new entry in collection 'books/Book'
-      const book = new Doc({
+      const book = new Doc({ // Doc is the database name
           title : req.body.title,
           description : req.body.description,
           publish_date : req.body.publishDate, // converting from string
@@ -112,7 +113,7 @@ router.post('/', (req, res) => {
           //res.send('done')
           res.redirect(`books/${newBook.id}`)
       } catch {
-          // removing file from s3
+          // removing file from s3 if posting causes error ;
           var params2 = {  Bucket: 'note-spot', Key: req.file.filename};
           s3.deleteObject(params2, function(err, data) {
               if (err) console.log('s3 del err (from post): ',err, err.stack);

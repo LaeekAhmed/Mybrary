@@ -7,11 +7,14 @@ const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const methodOverride = require('method-override')
 const compression = require('compression')
+const router = express.Router()
+const Book = require('./models/book')
 
 //import routes/controllers
 const indexRouter = require("./routes/index");
 const authorRouter = require("./routes/authors.min");
 const bookRouter = require("./routes/books.min");
+// let alert = require('alert'); 
 
 // gzip compression
 app.use(
@@ -28,8 +31,9 @@ app.use(
   })
 )
 // download pop-up test
-// app.get("/here", (req, res) => {
-//   res.download("server.js"); //download pop-up
+// app.get("/", async(req, res) => {
+//   // res.download("server.js"); //download pop-up
+//   res.render('test')
 //   console.log("here");
 // });
 
@@ -60,7 +64,7 @@ function connectDB() {
 }
 connectDB()
 
-// using routes/controllers
+// using routes/controllers (files imported above) ;
 app.use("/", indexRouter);
 app.use("/authors", authorRouter);
 app.use("/books", bookRouter);

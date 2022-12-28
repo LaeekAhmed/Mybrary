@@ -8,6 +8,11 @@
     box-sizing: border-box;
   }
 
+/* * {
+  margin: 0;
+} */
+
+ 
 body{
     font-family: Verdana, Geneva, Tahoma, sans-serif !important;
     background: linear-gradient(to right, rgb(0, 85, 255),#05166b);
@@ -74,7 +79,7 @@ button, .btn{
 
 }
 button:hover, a:hover, button:active{
-    opacity: 80%;
+    opacity: 50%;
     border: none !important;
 }
 
@@ -175,7 +180,8 @@ img{
 }
 
 .icon2:hover{
-    color: white;
+    color: white !important;
+    margin: 1% !important;
 }
 /* div ul li a{
     margin: 1% 2% !important;
@@ -192,10 +198,27 @@ div ul li a:hover{
     padding: 0% 3% !important;
     opacity: 90%;
 } */
+.intro-box{
+    font-size: large !important;
+    margin: 0% 0% !important;
+}
+.apology{
+    font-size: medium !important;
+    margin: 0% !important;
+    font-weight: normal;
+}
 
 nav{
     background: linear-gradient(to right,#05166b, rgb(0, 85, 255));
+    padding: 1% 0% !important;
+    margin: 0% !important;
+    border-radius: 1rem;
 }
+
+.navbar-nav{
+    margin-top: 0% !important;
+}
+
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;..") !important;
 }
@@ -207,6 +230,12 @@ nav{
     padding: 10px;
 }
 
+.card-title{
+    margin-top: 0.5rem !important;
+    font-size: medium !important;
+    font-weight: normal !important;
+}
+
 .card{
     margin: 12px;
     border: 2px solid white !important;
@@ -214,8 +243,8 @@ nav{
 }
 /* footer layouts */
 footer {
-    background-color: rgb(0, 0, 0);
-    overflow: hidden;
+    /* background-color: rgb(0, 0, 0); */
+    /* overflow: hidden; */
     width: 100%;
     margin-top: auto;
 }
@@ -225,7 +254,7 @@ footer a,footer span{
     padding: 0.5rem 1rem;
     text-align: center;
     float: left;
-    color: white;
+    color: white !important;
 }
 footer span{
     float: right;

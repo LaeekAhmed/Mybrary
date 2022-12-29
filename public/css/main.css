@@ -212,6 +212,7 @@ nav{
     background: linear-gradient(to right,#05166b, rgb(0, 85, 255));
     padding: 1% 0% !important;
     margin: 0% !important;
+    border: 2px solid rgb(255, 255, 255);
     border-radius: 1rem;
 }
 
@@ -253,7 +254,7 @@ footer a,footer span{
     text-decoration: none;
     padding: 0.5rem 1rem;
     text-align: center;
-    float: left;
+    float: right;
     color: white !important;
 }
 footer span{

@@ -1,5 +1,4 @@
 node_modules
 /DS_Store
 .env
-public/scss/custom.css
-public/scss/bootsrap.css
+public/scss

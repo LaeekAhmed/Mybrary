@@ -3,18 +3,22 @@ const router = express.Router();
 const Author = require("../models/author"); //db file
 const Book = require("../models/book");
 
-// all/search authors route, async func makes working wiht mongoose easier/await feature
+/* 📌 all/search authors route, async func makes working wiht mongoose easier/await feature
+req is the incoming data from user, res is the outgoing data we want to send to the user/reqester */
 router.get("/", async (req, res) => {
-    //⚠️ req.query instead of req.body since this is a get NOT post action;
-    let query = Author.find()
-    if (req.query.name != null && req.query.name != '') {
-      console.log(typeof(req.query.name))
-      if(req.query.name[0]==' ') req.query.name = req.query.name.substring(1);
-      query = query.regex('name', new RegExp(req.query.name, 'i'))
+
+  // variable was named query b4 but query was NOT the same as req.query, just to name ;
+  let query2 = Author.find()
+  
+    //📌 req.query instead of req.body since this is a get NOT post action ;
+    if (req.query.name != null && req.query.name != ''){
+        console.log(typeof(req.query.name))
+        if(req.query.name[0]==' ') req.query.name = req.query.name.substring(1);
+        query2 = query2.regex('name', new RegExp(req.query.name, 'i'))
     }
     /* RegExp/regex => searching for "yl" will also include "kyle","jo" will include "john", i => case insensitive*/
     try {
-      const authors = await query.exec()
+      const authors = await query2.exec()
       res.render("authors/index", {
         authors: authors,
         searchOptions: req.query,
@@ -31,12 +35,14 @@ router.get("/new", (req, res) => {
 });
 // .get(/new) -> new.ejs ->(submit) .post(/)
 
-// Create Author Route
+// 📌 Create Author Route ; req.body is the data sent by user in the form
 router.post("/", async (req, res) => {
+
   // new entry "author" into table "Author"
   const author = new Author({
     name: req.body.name,
   });
+  
   try {
     const newAuthor = await author.save();
     console.log("1",author)
@@ -52,7 +58,7 @@ router.post("/", async (req, res) => {
 /* res.redirect(`authors/${author.id}`); ❌ since redirect joins initial url with given; /authors + /authors/id
 putting back slash infront -> new path, else relative path*/
 
-// u can only make post,get req from a broweser,for put,delete we need method-override lib
+// 📌 u can only make post,get req from a browser,for put,delete we need method-override lib
 router.get('/:id', async (req, res) => {
   try {
     const author = await Author.findById(req.params.id)
@@ -67,6 +73,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// 📌 url with /:id is dynamic ;
 router.get('/:id/edit', async (req, res) => {
   try {
     const author = await Author.findById(req.params.id)
@@ -76,7 +83,7 @@ router.get('/:id/edit', async (req, res) => {
   }
 })
 // procedure ✳️ => .get('/:id/edit') -> render(authors/edit.ejs) ->(submit) .put('/:id')
-
+// 📌 put request is used to edit/update
 router.put('/:id', async (req, res) => {
   let author // defined outside try so that it can be accessed in catch
   try{

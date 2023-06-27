@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const Doc = require("../models/book"); //import db file
-const Author = require("../models/author"); //import db file
+
+//import db files (they export resp db Doc & Author) ;
+const Doc = require("../models/book"); 
+const Author = require("../models/author");
+
 const { v4: uuidv4 } = require('uuid');
 const crypto =  require('crypto');
 const aws = require("aws-sdk");
@@ -15,8 +18,10 @@ const multer = require('multer') //allows us to work with multipart forms (file-
 const path = require('path') //built-in library
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'] //accepted image-type list
 // const uploadPath = path.join('public','pdfs') //'public/uploads/bookCovers'
-// filesys -> to delete book covers created while no new entry for book was created due to error ;
-const fs = require('fs') 
+
+// filesys -> to read file contents/ delete book covers created while no new entry for book was created due to error ;
+const { readFile } = require('fs').promises; 
+// `.promises` allows us to use await with readFile
 
 const s3 = new aws.S3({
   accessKeyId: process.env.S3_ACCESS_KEY,
@@ -32,21 +37,25 @@ let storage = multer.diskStorage({
   } ,
 });
 
-let upload = multer({ storage, limits:{ fileSize: 1000000 * 100,fieldSize: 2 * 1024 * 1024 }, }).single('myfile'); //100mb
+// 100mb size limit ;
+let upload = multer({ storage, limits:{ fileSize: 1000000 * 100,fieldSize: 2 * 1024 * 1024 }, }).single('myfile'); 
 
-// all-search books route
+/* 📌 all-search books route ; req is the incoming data from user,
+res is the outgoing data we want to send to the user/requester */
 router.get("/", async (req, res) => {
-  // get from org!!!
-      let query = Doc.find()
+  
+      // get from org!!!
+      let query2 = Doc.find()
       if (req.query.title != null && req.query.title != '') {
-        query = query.regex('title', new RegExp(req.query.title, 'i'))
+        query2 = query2.regex('title', new RegExp(req.query.title, 'i'))
       }
       if (req.query.publishedBefore != null && req.query.publishedBefore != '') {
-        query = query.lte('publish_date', req.query.publishedBefore)
+        query2 = query2.lte('publish_date', req.query.publishedBefore)
       }
       if (req.query.publishedAfter != null && req.query.publishedAfter != '') {
-        query = query.gte('publish_date', req.query.publishedAfter)
+        query2 = query2.gte('publish_date', req.query.publishedAfter)
       }
+
       try {
         const books = await query.exec()
         res.render("books/index",{
@@ -58,7 +67,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-// new book route
+// new book route & its route handler function ;
 router.get("/new", async (req, res) => {
     renderNewPage(res,new Doc())
 });
@@ -72,10 +81,11 @@ router.get("/new", async (req, res) => {
 //   });
 // });
 
-// Create book Route
+// Create book Route & its route handler function ;
 router.post('/', (req, res) => {
   //storing file 
   upload(req, res, async (err) => {
+
       // validate request
       if(!req.file){
         return res.json({error : 'All fields are required!'})
@@ -84,17 +94,21 @@ router.post('/', (req, res) => {
         return res.status(500).send({ error: err.message+', try to use a image with size <= 500 kb ' });
       }
       console.log('file = ',req.file.filename)
+
       // Configure the upload details to send to S3
       const params = {
         Bucket: 'note-spot',
-        Body: fs.readFileSync(req.file.path),
+        // read contents of the file at the provided path ;
+        Body: await readFile(req.file.path),
         Key: req.file.filename,
         ContentType: req.file.mimetype,
         }
+
       // Uploading files to the bucket
       const uploadedImage = await s3.upload(params).promise()
       console.log('aws done : ',uploadedImage.Location)
-      // storing new entry in collection 'books/Book'
+
+      // storing new entry in collection 'books/Book ie. the mongo dbase'
       const book = new Doc({ // Doc is the database name
           title : req.body.title,
           description : req.body.description,
@@ -113,6 +127,7 @@ router.post('/', (req, res) => {
           //res.send('done')
           res.redirect(`books/${newBook.id}`)
       } catch {
+
           // removing file from s3 if posting causes error ;
           var params2 = {  Bucket: 'note-spot', Key: req.file.filename};
           s3.deleteObject(params2, function(err, data) {
@@ -141,7 +156,7 @@ async function renderNewPage(res, book,hasError = false) {
   }
 }
 
-// Show Book Route
+// Show Book Route & its route handler function ;
 router.get('/:id', async (req, res) => {
   try {
     const book = await Doc.findById(req.params.id)
@@ -169,7 +184,7 @@ router.get('/download/:uuid', async (req, res) => {
   // });
 });
 
-// edit book route
+// edit book route & its route handler function ;
 router.get("/:id/edit", async (req, res) => {
   res.send("edit book")
 });
@@ -184,15 +199,18 @@ router.delete("/:id", async (req, res) => {
   let books
   try {
     const books = await Doc.findById(req.params.id)
+
     // removing file from s3
     var params = {  Bucket: 'note-spot', Key: books.file_name };
     s3.deleteObject(params, function(err, data) {
         if (err) console.log('s3 del err : ',err, err.stack);
         else     console.log('file deleted from S3');        
     });
+
     // removing file from db
     await books.remove()
     res.redirect('/books')
+
   } catch {
     if(books != null){
       res.render('books/show',{

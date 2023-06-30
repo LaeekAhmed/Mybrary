@@ -46,7 +46,7 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(methodOverride('_method'))
 
-// built-in middleware function in Express, will put public before path of all css/js files in layout.ejs ;
+// 📌 built-in middleware function in Express, will put public before path of all css/js files in layout.ejs ;
 app.use(express.static("public")); 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -83,4 +83,4 @@ app.use("/authors", authorRouter);
 app.use("/books", bookRouter);
 
 const PORT = process.env.PORT || "5000";
-app.listen(PORT, () => console.log(`\nServer is running at http://localhost:${PORT} with environment: ${process.env.NODE_ENV}`));
+app.listen(PORT, ()=>console.log(`\nServer is running at http://localhost:${PORT} with environment: ${process.env.NODE_ENV}`));

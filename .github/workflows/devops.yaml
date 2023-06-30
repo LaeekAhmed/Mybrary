@@ -1,4 +1,4 @@
-name: notespot devops
+name: notespot ci
 
 on:
   push:
@@ -9,10 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v4
-      with:
-        node-version: 16
-      - run: npm ci
-      - run: npm run start
-
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Start application
+        run: npm run start

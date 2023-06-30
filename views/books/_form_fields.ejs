@@ -1,3 +1,5 @@
+<!-- will be called by new.ejs -->
+
 <div class="form-row">
   <div class="form-item pb-2">
     <label>Title</label>
@@ -6,15 +8,17 @@
   <div class="form-item pb-2">
     <label>Author</label>
     <select name="author">
-        <!-- authors is an array containing Author objects -->
-        <% authors.forEach(author => { %>
-            <% if (author.id === book.author) { %>
-                <option selected label="<%= author.name %>" value="<%= author.id %>"></option>
-            <% } else { %>
-                <option label="<%= author.name %>" value="<%= author.id %>"></option>
-            <% } %>
-        <% }) %>
-        <!-- value is an object id -->
+      <!-- authors is an array containing Author objects -->
+      <% authors.forEach(author => { %> <% if (author.id === book.author) { %>
+      <option
+        selected
+        label="<%= author.name %>"
+        value="<%= author.id %>"
+      ></option>
+      <% } else { %>
+      <option label="<%= author.name %>" value="<%= author.id %>"></option>
+      <% } %> <% }) %>
+      <!-- value is an object id -->
     </select>
   </div>
 </div>
@@ -22,16 +26,12 @@
 <div class="form-row">
   <div class="form-item pb-2">
     <label>Publish Date</label>
-    <input
-      type="date"
-      name="publishDate"
-      value="<%=book.publishDate%>"
-    />
+    <input type="date" name="publishDate" value="<%=book.publishDate%>" />
   </div>
   <!-- book.publishDate format : 2019-10-19T12:34:45.6 -->
   <div class="form-item file">
     <label>Add document</label>
-    <input type="file" required name="myfile"/>
+    <input type="file" required name="myfile" />
   </div>
 </div>
 
@@ -42,6 +42,11 @@
   </div>
   <div class="form-item pt-2">
     <label>Description</label>
-    <textarea name="description" placeholder="Please make sure the uploaded file is less than 20mb"><%= book.description %></textarea>
+    <textarea
+      name="description"
+      placeholder="Please make sure the uploaded file is less than 20mb"
+    >
+<%= book.description %></textarea
+    >
   </div>
 </div>

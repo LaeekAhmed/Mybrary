@@ -81,7 +81,7 @@ router.get("/new", async (req, res) => {
 //   });
 // });
 
-// Create book Route & its route handler function ;
+// Create book Route & its route handler function, called by `new.ejs`
 router.post('/', (req, res) => {
   //storing file 
   upload(req, res, async (err) => {
@@ -108,7 +108,7 @@ router.post('/', (req, res) => {
       const uploadedImage = await s3.upload(params).promise()
       console.log('aws done : ',uploadedImage.Location)
 
-      // storing new entry in collection 'books/Book ie. the mongo dbase'
+      // storing new entry in collection 'books/Book in MONGO DB'
       const book = new Doc({ // Doc is the database name
           title : req.body.title,
           description : req.body.description,
@@ -222,7 +222,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Functions ;----------------------------------------------------------------------------------------------------
+// Functions :
 
 function saveCover(book, coverEncoded) {
   if (coverEncoded == null) return

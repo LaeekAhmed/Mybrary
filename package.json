@@ -6,10 +6,10 @@
     "node": "16.16.0",
     "npm": "8.11.0"
   },
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "devStart": "nodemon server.js"
+    "start": "node index.js",
+    "devStart": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

@@ -27,8 +27,6 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(methodOverride('_method'))
 
-// middleware : will put public before path of all css/js files in layout.ejs ;
-app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 
@@ -94,6 +92,9 @@ app.use((req, res, next) => {
 app.use("/", indexRouter);
 app.use("/authors", authorRouter);
 app.use("/books", bookRouter);
+
+// middleware : will put public before path of all css/js files in layout.ejs ;
+app.use(express.static(__dirname + "/public/"));
 
 const PORT = process.env.PORT || "5000";
 

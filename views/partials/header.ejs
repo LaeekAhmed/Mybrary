@@ -1,29 +1,64 @@
 <header>
-  <nav class="navbar navbar-expand-lg mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Note-Spot</a>
+  <nav class="navbar navbar-expand-lg m-2">
+    <div class="container-fluid position-relative">
+      <a class="navbar-brand fw-normal font-monospace" href="/">Note-Spot  <i class="bi bi-journal-bookmark"></i></a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/books"> Documents 📚</a>
+            <a class="nav-link active" aria-current="page" href="/books">Documents <i class="bi bi-book"></i></a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="/authors"> Publishers 🧑‍💻</a>
+            <a class="nav-link" href="/authors">Publishers <i class="bi bi-people"></i></a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Upload 📝
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/authors/new"> (+) Add Publisher 🧑‍💻</a></li>
-              <li><a class="dropdown-item" href="/books/new"> (+) Add Document 📑</a></li>
-            </ul>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/books/new">Upload Document <i class="bi bi-file-earmark-plus"></i></a>
+          </li>
+
+          <li class="nav-item position-absolute end-0">
+            <% if (!isAuthenticated) { %>
+              <a class="nav-link" href="/login">Login <i class="bi bi-box-arrow-in-right"></i></a>
+            <% } %>
+          </li>
         </ul>
+
+        <% if (isAuthenticated) { %>
+          <div class="d-flex justify-content-end align-items-center position-absolute end-0">
+            <!-- <p class="ml-2 mb-0">Hello <%= user.given_name %></p> -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-list-4">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="<%= user.picture %>" width="40" height="40" class="rounded-circle" alt="Profile Picture">
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <p class="dropdown-item">Hello <%= user.given_name%>! 👋</p>
+                    <!-- <li><a class="dropdown-item" href="/user">Dashboard</a></li> -->
+                    <!-- <li><a class="dropdown-item" href="#">Edit Profile</a></li> -->
+                    <li>
+                      <% if (isAuthenticated) { %>
+                        <a class="dropdown-item" href="/logout">Logout <i class="bi bi-box-arrow-right"></i></a>
+                      <% } else { %>
+                        <a class="dropdown-item" href="/login">Login <i class="bi bi-box-arrow-in-right"></i></a>
+                      <% } %>
+                    </li>
+                  </ul>
+                </li>   
+              </ul>
+            </div>
+          </div>
+        <% } %>          
+
       </div>
     </div>
   </nav>
 </header>
-

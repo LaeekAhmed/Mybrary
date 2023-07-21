@@ -22,10 +22,12 @@
     "blob": "^0.1.0",
     "body-parser": "^1.20.0",
     "bootstrap": "^5.3.0-alpha1",
+    "bootstrap-icons": "^1.10.5",
     "compression": "^1.7.4",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-ejs-layouts": "^2.5.1",
+    "express-openid-connect": "^2.16.0",
     "ioredis": "^5.2.3",
     "method-override": "^3.0.0",
     "mongoose": "^6.5.1",
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.1",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "tailwindcss": "^3.3.3"
   }
 }

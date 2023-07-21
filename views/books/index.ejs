@@ -1,11 +1,10 @@
-<h2 class="page-header">Search Book</h2>
 <!-- 📌 form ; action specifies where this form's feild values will be used
 and method specifies the verb/type of the action's request -->
 <form action="/books" method="GET">
   <div class="form-row">
     <div class="form-item">
       <label>Title</label>
-      <input type="text" name="title" value="<%= searchOptions.title %>"/>
+      <input type="text" name="title" placeholder="graphs" value="<%= searchOptions.title %>"/>
     </div>
     <div class="form-item">
       <label>Published After</label>
@@ -15,7 +14,7 @@ and method specifies the verb/type of the action's request -->
       <label>Published Before</label>
       <input type="date" name="publishedBefore" value="<%= searchOptions.publishedBefore %>">
     </div>
-    <button class="btn btn-primary" type="submit">Search</button>
+    <button class="btn btn-primary" type="submit">Search <i class="bi bi-search"></i></button>
   </div>
 </form>
 <br>

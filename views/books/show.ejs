@@ -1,13 +1,13 @@
-<h2 class="page-header">Title : <%= book.title %></h2>
+<h2 class="page-header"><i class="bi bi-file-earmark-pdf"></i> <%= book.title %></h2>
 <div class="book-details">
   <div>
     <img class="book-cover" src="<%= book.coverImagePath %>" height='220' width="160">
   </div>
   <div class="book-details-grid">
     <div class="book-details-label">Author:</div>
-    <div><%= author.name %></div>
+    <div><i class="bi bi-person"></i> <%= author.name %></div>
     <div class="book-details-label">Publish Date:</div>
-    <div><%= book.publish_date != null ? book.publish_date.toDateString() : "-" %></div>
+    <div><i class="bi bi-folder-plus"></i> <%= book.publish_date != null ? book.publish_date.toDateString() : "-" %></div>
     <div class="book-details-label">Description:</div>
     <div><%= book.description=="" ? "-" : book.description  %></div><br>
     <div class="book-details-label">Please scroll down to view the document ⏬</div>

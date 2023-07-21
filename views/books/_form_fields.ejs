@@ -3,10 +3,12 @@
 <div class="form-row">
   <div class="form-item pb-2">
     <label>Title</label>
-    <input type="text" name="title" required value="<%= book.title %>" />
+    <input type="text" name="title" placeholder="graph notes" required value="<%= book.title %>" />
   </div>
+
   <div class="form-item pb-2">
-    <label>Author</label>
+    <label><i class="bi bi-person"></i> Author</label>
+
     <select name="author">
       <!-- authors is an array containing Author objects -->
       <% authors.forEach(author => { %> <% if (author.id === book.author) { %>
@@ -20,6 +22,7 @@
       <% } %> <% }) %>
       <!-- value is an object id -->
     </select>
+
   </div>
 </div>
 
@@ -29,6 +32,7 @@
     <input type="date" name="publishDate" value="<%=book.publishDate%>" />
   </div>
   <!-- book.publishDate format : 2019-10-19T12:34:45.6 -->
+
   <div class="form-item file">
     <label>Add document</label>
     <input type="file" required name="myfile" />
@@ -40,6 +44,7 @@
     <label>Cover</label>
     <input type="file" name="cover" required class="book-cover filepond" />
   </div>
+  
   <div class="form-item pt-2">
     <label>Description</label>
     <textarea

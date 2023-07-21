@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root{
     --book-cover-width: 200px;
     --book-cover-width-large: 325px;
@@ -141,7 +145,7 @@ img{
 
 /* navbar styling */
 .navbar-brand{
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: white !important;
 }
 
@@ -156,7 +160,7 @@ img{
     border-radius: 15px;
     color: white !important;
     background: none;
-    padding: 0 1rem !important;
+    padding: 2px 1rem !important;
 }
 
 .italic{
@@ -169,7 +173,7 @@ img{
     width: fit-content;
     background-color: rgb(5, 86, 248);
     border-radius: 15px;
-    padding: 0 1rem !important;
+    padding: 2px 1rem !important;
     opacity: 100%;
 }
 
@@ -183,6 +187,7 @@ img{
     color: white !important;
     margin: 1% !important;
 }
+  
 /* div ul li a{
     margin: 1% 2% !important;
     width: fit-content;
@@ -212,7 +217,7 @@ nav{
     background: linear-gradient(to right,#05166b, rgb(0, 85, 255));
     padding: 1% 0% !important;
     margin: 0% !important;
-    border: 2px solid rgb(255, 255, 255);
+    /* border: 2px solid rgb(255, 255, 255); */
     border-radius: 1rem;
 }
 
@@ -223,6 +228,35 @@ nav{
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;..") !important;
 }
+
+/* CSS styles for header.ejs */
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+  
+.user-avatar {
+    width: 20px !important; /* Adjust the size of the user avatar as per your requirement */
+    height: 20px !important; 
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    margin: 0;
+}
+
+.user-email {
+    margin: 0;
+}
+
 /* book grid layouts */
 .gallery{
     display: flex;

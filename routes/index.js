@@ -3,8 +3,27 @@ const router = express.Router()
 const Book = require('../models/book')
 const redis = require('redis')
 const { json } = require('body-parser')
+const { requiresAuth } = require('express-openid-connect')
 
-// ⚠️ server side caching ;
+// without caching :
+router.get('/', async (req, res) => {
+    let books
+    try {
+      books = await Book.find().sort({ createdAt: 'desc' }).limit(10).exec()
+    } catch {
+      books = []
+    }
+    res.render('index', { books: books})
+    // res.render('test')
+})
+
+// router.get('/user', requiresAuth() ,async (req, res) => {
+//   res.render('user')
+// })
+
+module.exports = router
+
+// server side caching ;
 // console.log(process.env.REDISCLOUD_URL)
 // const redisClient = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
 
@@ -12,7 +31,7 @@ const { json } = require('body-parser')
 //   await redisClient.connect();
 // })();
 
-// redisClient.on('connect', () => console.log('::> Redis Client Connected ✅'));
+// redisClient.on('connect', () => console.log('::> Redis Client Connected'));
 // redisClient.on('error', (err) => console.log('<:: Redis Client Error', err));
 
 // router.get('/', async (req, res) => {
@@ -37,17 +56,3 @@ const { json } = require('body-parser')
 //   })
 
 // })
-
-// ⚠️ without caching;
-router.get('/', async (req, res) => {
-  let books
-  try {
-    books = await Book.find().sort({ createdAt: 'desc' }).limit(10).exec()
-  } catch {
-    books = []
-  }
-  res.render('index', { books: books })
-  // res.render('test')
-})
-
-module.exports = router

@@ -1,10 +1,9 @@
-<h2 class="page-header">Name : <%= author.name %></h2>
+<h3 class="page-header"><i class="bi bi-person"></i> <%= author.name %></h3>
 <div class="btn-row">
-  <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">Edit</a>
-  <%- include('../partials/deleteForm',
-              { url: `/authors/${author.id}` }) %>
+  <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">change name</a>
+  <%- // include('../partials/deleteForm', { url: `/authors/${author.id}` }) %>
 </div>
 <% if (booksByAuthor.length > 0) { %>
-  <h2 class="page-header pt-2">Books By Author ; </h2>
+  <p class="page-header mt-3 fs-4"><i class="bi bi-file-earmark-pdf"></i> files By Author : </p>
   <%- include('../partials/bookGrid', { books: booksByAuthor }) %>
 <% } %>

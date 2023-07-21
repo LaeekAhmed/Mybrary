@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Author = require("../models/author"); //db file
 const Book = require("../models/book");
+const { requiresAuth } = require('express-openid-connect')
 
 /* 📌 all/search authors route, async func makes working wiht mongoose easier/await feature
 req is the incoming data from user, res is the outgoing data we want to send to the user/reqester */
@@ -30,7 +31,7 @@ router.get("/", async (req, res) => {
 // procedure ✳️ => .get('/authors') -> render(authors/index.ejs) ->(submit) .get('/authors?name=....')
 
 // new author route
-router.get("/new", (req, res) => {
+router.get("/new", requiresAuth(), (req, res) => {
   res.render("authors/new", { author: new Author() });
 });
 // .get(/new) -> new.ejs ->(submit) .post(/)
@@ -74,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // 📌 url with /:id is dynamic ;
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', requiresAuth() ,async (req, res) => {
   try {
     const author = await Author.findById(req.params.id)
     res.render('authors/edit', { author: author })
@@ -82,9 +83,10 @@ router.get('/:id/edit', async (req, res) => {
     res.redirect('/authors')
   }
 })
-// procedure ✳️ => .get('/:id/edit') -> render(authors/edit.ejs) ->(submit) .put('/:id')
-// 📌 put request is used to edit/update
-router.put('/:id', async (req, res) => {
+
+
+// procedure => .get('/:id/edit') -> render(authors/edit.ejs) ->(submit) .put('/:id'), put request is used to edit/update :
+router.put('/:id', requiresAuth(), async (req, res) => {
   let author // defined outside try so that it can be accessed in catch
   try{
     author = await Author.findById(req.params.id)
@@ -107,7 +109,7 @@ router.put('/:id', async (req, res) => {
 })
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requiresAuth(), async (req, res) => {
   const books = await Book.find({ author: req.params.id })
   let author
   try {

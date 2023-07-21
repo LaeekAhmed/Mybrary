@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { requiresAuth } = require('express-openid-connect')
 
 //import db files (they export resp db Doc & Author) ;
 const Doc = require("../models/book"); 
@@ -40,7 +41,7 @@ let storage = multer.diskStorage({
 // 100mb size limit ;
 let upload = multer({ storage, limits:{ fileSize: 1000000 * 100,fieldSize: 2 * 1024 * 1024 }, }).single('myfile'); 
 
-/* 📌 all-search books route ; req is the incoming data from user,
+/* all-search books route ; req is the incoming data from user,
 res is the outgoing data we want to send to the user/requester */
 router.get("/", async (req, res) => {
   
@@ -57,18 +58,20 @@ router.get("/", async (req, res) => {
       }
 
       try {
-        const books = await query.exec()
+        const books = await query2.exec()
+        // console.log("success")
         res.render("books/index",{
             books : books,
             searchOptions: req.query
         });
-    } catch{
+    } catch(e){
+        console.log("error");
         res.redirect("/");
     }
 });
 
 // new book route & its route handler function ;
-router.get("/new", async (req, res) => {
+router.get('/new', requiresAuth(), async (req, res) => {
     renderNewPage(res,new Doc())
 });
 
@@ -139,7 +142,7 @@ router.post('/', (req, res) => {
     });
 });
 
-async function renderNewPage(res, book,hasError = false) {
+async function renderNewPage(res, book, hasError = false) {
   try {
     const authors = await Author.find({})
     const params = {
@@ -195,7 +198,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // delete book route
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requiresAuth(), async (req, res) => {
   let books
   try {
     const books = await Doc.findById(req.params.id)

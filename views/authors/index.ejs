@@ -5,23 +5,23 @@
       <label>Name</label>
       <input type="text" name="name" value="<%= searchOptions.name %> " />
     </div>
-    <button class="btn btn-primary" type="submit">Search</button>
+    <button class="btn btn-primary" type="submit">Search <i class="bi bi-search"></i></button>
   </div>
 </form>
 <br />
+
 <!-- author is an array of objects of the form 
 {_id: new ObjectId("62ea0...."),name: 'Laeek Ahmed',__v: 0} -->
 <% let arr1 = [] %> <% authors.forEach(author => { %>
 <div class="card p-2 author-row">
   <% if (arr1.includes((author.name))==false) {%>
-  <div class="author-name">
-    <%= author.name %><% arr1.push(author.name) %>
+  <div class="author-name text-white">
+    <i class="bi bi-person"></i> <%= author.name %><% arr1.push(author.name) %>
   </div>
   <div class="author-row">
     <a class="btn btn-primary" href="/authors/<%= author.id %>">View</a>
-    <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">Edit</a>
-    <%- include('../partials/deleteForm',
-                { url: `/authors/${author.id}` }) %>
+    <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">change name</a>
+    <%- // include('../partials/deleteForm',{ url: `/authors/${author.id}` }) %>
   </div>
   <% } %>
 </div>

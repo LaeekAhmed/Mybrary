@@ -1,5 +1,12 @@
 node_modules
+dist/
+
+publc/scss
+publc/fonts
+
+public/css/bootstrap.css
+public/css/bootstrap-theme.css
+
 /DS_Store
 .env
-# public/scss
 cert

@@ -11,16 +11,13 @@
 
     <select name="author">
       <!-- authors is an array containing Author objects -->
-      <% authors.forEach(author => { %> <% if (author.id === book.author) { %>
-      <option
-        selected
-        label="<%= author.name %>"
-        value="<%= author.id %>"
-      ></option>
-      <% } else { %>
-      <option label="<%= author.name %>" value="<%= author.id %>"></option>
-      <% } %> <% }) %>
-      <!-- value is an object id -->
+      <% authors.forEach(author=> { %> <% if (author.id===book.author) { %>
+          <option selected label="<%= author.name %>" value="<%= author.id %>"></option>
+          <% } else { %>
+            <option label="<%= author.name %>" value="<%= author.id %>"></option>
+            <% } %>
+              <% }) %>
+                <!-- value is an object id -->
     </select>
 
   </div>
@@ -42,16 +39,12 @@
 <div class="form-row">
   <div id="img1" class="form-item form-item-no-grow">
     <label>Cover</label>
-    <input type="file" name="cover" required class="book-cover filepond" />
+    <input type="file" name="cover" class="book-cover filepond" />
   </div>
-  
+
   <div class="form-item pt-2">
     <label>Description</label>
-    <textarea
-      name="description"
-      placeholder="Please make sure the uploaded file is less than 20mb"
-    >
-<%= book.description %></textarea
-    >
+    <textarea name="description" placeholder="Please make sure the uploaded file is less than 20mb">
+<%= book.description %></textarea>
   </div>
 </div>

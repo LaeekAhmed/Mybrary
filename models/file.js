@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const fileSchema = new  mongoose.Schema({
     filename: { type: String, required: true },
@@ -7,5 +7,5 @@ const fileSchema = new  mongoose.Schema({
     uuid: { type: String, required: true },  
 }, { timestamps: true });
 
-module.exports = mongoose.model('File', fileSchema);
+export default mongoose.model('File', fileSchema);
 // 'files' will be added as a collection to db test

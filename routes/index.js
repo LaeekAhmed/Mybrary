@@ -1,27 +1,24 @@
-const express = require('express')
+import express from 'express';
 const router = express.Router()
-const Book = require('../models/book')
-const redis = require('redis')
-const { json } = require('body-parser')
-const { requiresAuth } = require('express-openid-connect')
+import Book from '../models/book.js';
 
 // without caching :
 router.get('/', async (req, res) => {
-    let books
-    try {
-      books = await Book.find().sort({ createdAt: 'desc' }).limit(10).exec()
-    } catch {
-      books = []
-    }
-    res.render('index', { books: books})
-    // res.render('test')
+  let books
+  try {
+    books = await Book.find().sort({ createdAt: 'desc' }).limit(10).exec()
+  } catch {
+    books = []
+  }
+  res.render('index', { books: books })
+  // res.render('test')
 })
 
 // router.get('/user', requiresAuth() ,async (req, res) => {
 //   res.render('user')
 // })
 
-module.exports = router
+export default router;
 
 // server side caching ;
 // console.log(process.env.REDISCLOUD_URL)

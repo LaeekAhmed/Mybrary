@@ -32,7 +32,7 @@ app.use(cors());
 
 // middleware to log the requested endpoints
 app.use((req, res, next) => {
-  console.log(`=> ${req.method} ${req.url} ${JSON.stringify(req.query)}`);
+  console.log(`${req.method} ${req.url} query: ${JSON.stringify(req.query)}\n`);
   next();
 });
 

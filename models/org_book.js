@@ -1,7 +1,8 @@
 //import
-const mongoose = require("mongoose");
-const path = require('path')
-const Blob = require('node-blob');
+import mongoose from 'mongoose';
+
+import path from 'path';
+import Blob from 'node-blob';
 
 // schema = table
 const bookSchema = new mongoose.Schema({
@@ -71,4 +72,4 @@ bookSchema.virtual('coverImagePath').get(function() {
 
 
 //export bookSchema as "Book";
-module.exports = mongoose.model("Book", bookSchema);
+export default mongoose.model("Book", bookSchema);

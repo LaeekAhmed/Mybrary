@@ -5,6 +5,9 @@ A **full-stack file sharing platform** designed for users to upload, download, a
 ### **Architecture Overview**
 <img width="650" alt="image" src="https://github.com/user-attachments/assets/27b2965d-9aa3-43f1-9bde-da6ad5d84485">
 
+> [!NOTE]
+> *Development is still in progress*
+
 - **Frontend**: Built with **Next.js**, deployed on **Vercel**, delivering a easy to use interface for users.
 - **Backend**: Developed using **Express.js** and deployed on an **AWS EC2 instance**, providing a highly reliable **REST API** to facilitate communication between the frontend and backend services.
 - **Authentication**: Integrated **Clerk** for user authentication and API security, ensuring only authorized users can access and manipulate data.
